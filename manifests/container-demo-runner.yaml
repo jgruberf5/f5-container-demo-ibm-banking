@@ -1,15 +1,15 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: demo-goldman-sachs-portal
+  name: demo-ibm-banking-portal
   labels:
-    name: demo-goldman-sachs-portal
+    name: demo-ibm-banking-portal
 ---
 apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: diag-container
-  namespace: demo-goldman-sachs-portal
+  namespace: demo-ibm-banking-portal
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -18,7 +18,7 @@ metadata:
 subjects:
   - kind: ServiceAccount
     name: diag-container
-    namespace: demo-goldman-sachs-portal
+    namespace: demo-ibm-banking-portal
 roleRef:
   kind: ClusterRole
   name: cluster-role-binding-diag-container
@@ -37,7 +37,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: diag-container-config
-  namespace: demo-goldman-sachs-portal
+  namespace: demo-ibm-banking-portal
 data:
   allowed_commands: |
     ["^ping", "^cat /etc/hosts", "^cat /etc/resolv.conf", "^env$", "^ip route$", "^ip addr$", "^ip link$", "^ip neigh", "^netstat", "^dig", "^nc", "^ab", "^siege", "^tcping", "^traceroute", "^tcptraceroute", "^curl", "^whois", "^kubectl", "^sockperf", "^iperf", "^iperf3"]
@@ -50,7 +50,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: diag-container-app
-  namespace: demo-goldman-sachs-portal
+  namespace: demo-ibm-banking-portal
 spec:
   selector:
     matchLabels:
@@ -68,7 +68,7 @@ spec:
           name: diag-container-config
       containers:
       - name: diag-container
-        image: jgruberf5/f5-container-demo-goldman-sachs:latest
+        image: jgruberf5/f5-container-demo-ibm-banking:latest
         # if you want to be able to inject /etc/hosts entries
         #securityContext:
         #  allowPrivilegeEscalation: false
@@ -93,7 +93,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: web
-  namespace: demo-goldman-sachs-portal
+  namespace: demo-ibm-banking-portal
 spec:
   type: ClusterIP
   selector:

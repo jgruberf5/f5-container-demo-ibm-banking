@@ -84,13 +84,13 @@ RUN curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packa
     apt-get update && \
     apt-get install -u kubectl
 
-RUN git clone https://github.com/jgruberf5/f5-container-demo-goldman-sachs.git
+RUN git clone https://github.com/jgruberf5/f5-container-ibm-banking.git
 
-RUN pip3 install -r /f5-container-demo-goldman-sachs/requirements.txt
+RUN pip3 install -r /f5-container-demo-ibm-banking/requirements.txt
 
 EXPOSE 8080
 EXPOSE 5001
 EXPOSE 5201
 EXPOSE 11111
 
-ENTRYPOINT [ "/f5-container-demo-goldman-sachs/run.sh" ]
+ENTRYPOINT [ "/f5-container-demo-ibm-banking/run.sh" ]
